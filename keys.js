@@ -1,10 +1,10 @@
 console.log('this is loaded');
 
-var config = JSON.parse(process.env.HEROKU_CONFIG);
-// exports.twitterKeys = {
-exports.keys = {
-  consumer_key: config.CONSUMER_KEY,
-  consumer_secret: config.CONSUMER_SECRET,
-  access_token_key: config.ACCESS_TOKEN_KEY,
-  access_token_secret: config.ACCESS_TOKEN_SECRET,
+// 
+  exports.twitterKeys = {
+
+  consumer_key: "VfW7sHZIZprrq7yfDWDsD6SZi",
+  consumer_secret: "mdVkAV3YfzyAWgsySVcxhzpxYK9kIuwFKgoduyIj4ovJXRkItL",
+  access_token_key: "2273609821-2DOGOcGXfHGFeT7O2aSoul7K7Y1w2OEeKqhxV3q",
+  access_token_secret: "U2ZSHanmnxA8cyuml4XNBX5UxitpZuP6kNKpZ8ztWFBL1",
 }

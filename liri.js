@@ -23,7 +23,7 @@ var client = new Twitter({
 var params = { screen_name: 'LeslieAMoses' };
 // getting the text and eliminating the rest
 client.get('statuses/user_timeline/text', params, function(error, tweets, response) {
-    if (!error) {
+    if (!error && process.argv[2] === "my-tweets") {
         // console.log(tweets);
 
         // edited code from Brent Lewis to access Tweet obj

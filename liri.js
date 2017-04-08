@@ -1,34 +1,33 @@
-// stores twitterKeys from the keys file.
-//VAR KEYS not working yet
-// var keys = require("keys");
-
-
-// var for Twitter access keys
+// require for my Twitter npm 
 var Twitter = require('twitter');
-
+// access to my Twitter 
 var client = new Twitter({
     consumer_key: "VfW7sHZIZprrq7yfDWDsD6SZi",
     consumer_secret: "mdVkAV3YfzyAWgsySVcxhzpxYK9kIuwFKgoduyIj4ovJXRkItL",
     access_token_key: "2273609821-2DOGOcGXfHGFeT7O2aSoul7K7Y1w2OEeKqhxV3q",
     access_token_secret: "U2ZSHanmnxA8cyuml4XNBX5UxitpZuP6kNKpZ8ztWFBL1",
 });
-
+// var to get the user text after my-tweets
 var twitterHandle = process.argv[3];
-
-var params = { screen_name: twitterHandle };
+// var set to get Twitter handle
+var params = {
+    screen_name: twitterHandle
+};
 // getting the text and eliminating the rest
 client.get('statuses/user_timeline/text', params, function(error, tweets, response) {
+    // if no error and user type "my-tweets" after node and the file name...
     if (!error && process.argv[2] === "my-tweets") {
-        // console.log(tweets);
 
+        // ...then of all the tweets, show the date and text parts (via for loop)
         // edited code from Brent Lewis to access Tweet obj
         for (var i = 0; i < tweets.length; i++) {
+            // Lewis' formatting that add a ) and line breaks
             console.log('\n' + (i + 1) + ')   ' + tweets[i].created_at + ':\n' + '      "' + tweets[i].text + '"' + '\n');
         };
     }
 });
 
-// <<<<<SPOTIFY TXT FILE needed?
+// <<<<<SPOTIFY TXT FILE  
 // Includes the FS package for reading and writing packages
 var fs = require("fs");
 // FOR MORE INFO, SEE: https: //docs.nodejitsu.com/articles/file-system/how-to-read-files-in-nodejs/
@@ -56,14 +55,18 @@ for (i = 2; i < song.length; i++) {
     totalSong = totalSong + " " + song[i];
 }
 
-spotify.search({ type: 'track', query: song },
+spotify.search({
+        type: 'track',
+        query: song
+    },
     function(err, data) {
         if (err) {
+            // if there's an error, the show "error" with the error
             console.log('Error: ' + err);
             return;
+            // otherwise, show the artists part of the returned object data
         } else console.log(data.tracks.items.artists);
 
-        // Do something with 'data' 
 
     });
 

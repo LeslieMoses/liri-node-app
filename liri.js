@@ -1,13 +1,6 @@
-// 2.	At the top of the liri.js file, write the code you need to grab 
-// the data from keys.js. Then store the keys in a variable.
-// 3.	Make it so liri.js can take in one of the following commands:
-// •	my-tweets
-// •	spotify-this-song
-// •	movie-this
-// •	do-what-it-says
+// stores twitterKeys from the keys file.
 //VAR KEYS not working yet
 // var keys = require("keys");
-// stores twitterKeys from the keys file.
 
 
 // var for Twitter access keys
@@ -20,7 +13,9 @@ var client = new Twitter({
     access_token_secret: "U2ZSHanmnxA8cyuml4XNBX5UxitpZuP6kNKpZ8ztWFBL1",
 });
 
-var params = { screen_name: 'LeslieAMoses' };
+var twitterHandle = process.argv[3];
+
+var params = { screen_name: twitterHandle };
 // getting the text and eliminating the rest
 client.get('statuses/user_timeline/text', params, function(error, tweets, response) {
     if (!error && process.argv[2] === "my-tweets") {
@@ -33,32 +28,40 @@ client.get('statuses/user_timeline/text', params, function(error, tweets, respon
     }
 });
 
-
 // <<<<<SPOTIFY TXT FILE needed?
 // Includes the FS package for reading and writing packages
 var fs = require("fs");
-// FOR MORE INFO, SEE: https://docs.nodejitsu.com/articles/file-system/how-to-read-files-in-nodejs/
-// // Running the readFile module that's inside of fs.
-// // Stores the read information into the variable "data"
-// fs.readFile("random.txt", "utf8", function(err, data) {
-// //   // Break the string down by comma separation and store the contents into the output array.
-//   var output = data.split(",");
-// //   // Loop Through the newly created output array
-//   for (var i = 0; i < output.length; i++) {
-// //     // Print each element (item) of the array/
-//     console.log(output[i]);
-//   }
-// });
+// FOR MORE INFO, SEE: https: //docs.nodejitsu.com/articles/file-system/how-to-read-files-in-nodejs/
+// Running the readFile module that's inside of fs.
+// Stores the read information into the variable "data"
+fs.readFile("random.txt", "utf8", function(err, data) {
+    // Break the string down by comma separation and store the contents into the output array.
+    var output = data.split(",");
+    // Loop Through the newly created output array
+    for (var i = 0; i < output.length; i++) {
+        // Print each element (item) of the array/
+        console.log(output[i]);
+    }
+});
 
 // >>>>>>>>>>>>>>>>>>>SPOTIFY 
 var spotify = require('spotify');
+var song = process.argv;
 
-spotify.search({ type: 'track', query: 'dancing in the moonlight' },
+// totalSong to receive all the user types
+var totalSong = "";
+// loop through each input
+for (i = 2; i < song.length; i++) {
+    // include everything the user types:
+    totalSong = totalSong + " " + song[i];
+}
+
+spotify.search({ type: 'track', query: song },
     function(err, data) {
         if (err) {
             console.log('Error: ' + err);
             return;
-        }
+        } else console.log(data.tracks.items.artists);
 
         // Do something with 'data' 
 
@@ -66,6 +69,7 @@ spotify.search({ type: 'track', query: 'dancing in the moonlight' },
 
 
 // <<<<<<<<MOVIE
+// 1.	node liri.js movie-this '<movie name here>' ##
 /* Take any movie with a word title (ex: Cinderella) as a Node argument and retrieve the year 
 it was created*/
 var movName = process.argv;
